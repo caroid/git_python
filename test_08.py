@@ -138,20 +138,20 @@ def log_statistic(i_path):
                 ws.write(i-1,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%f_httpname))
                 ws.write(i-1,  COL_remarks, f_httpname)
                 # estimate the times that the "ATE restart button" have be clicked.
-            soup=BeautifulSoup(open(f_fullname),"lxml")
-            for child in soup.descendants:
-                if child.string ==("\n"+"art_dn.sh"):
-                    if n > 0:
-                        ws.write(i-1, COL_Restart_Times, n,style2)
-                    n = n + 1
-                if child.string == "FAIL":
-                    #if p%2 == 1:
-                        #print(child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)	
-                        #if (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string) <> "-":
-                            #temp_1 += (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string + "\n")
-                            #ws.write(i-1,COL_Fail_Comments,temp_1[:-1])
-                    #p = p + 1  
-                    ws.write(i-1,COL_Fail_Comments,child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)
+                soup=BeautifulSoup(open(f_fullname),"lxml")
+                for child in soup.descendants:
+                    if child.string ==("\n"+"art_dn.sh"):
+                        if n > 0:
+                            ws.write(i-1, COL_Restart_Times, n,style2)
+                        n = n + 1
+                    if child.string == "FAIL":
+                        #if p%2 == 1:
+                            #print(child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)	
+                            #if (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string) <> "-":
+                                #temp_1 += (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string + "\n")
+                                #ws.write(i-1,COL_Fail_Comments,temp_1[:-1])
+                        #p = p + 1  
+                        ws.write(i-1,COL_Fail_Comments,child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)
     # caculate the number of illegal .html log
     ws.write(i+1, COL_Log_Quantity, "invalid_file_name = ")  
     ws.write(i+2, COL_Log_Quantity, invalid_file_name)
