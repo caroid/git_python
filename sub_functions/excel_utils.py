@@ -43,7 +43,7 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
     COL_Restart_Times = 9
     COL_Report_Hyperlink = 10
     COL_Fail_Comments = 11
-    COL_remarks = 12
+    COL_remarks = 13
     SHEET_Log_Statistic = 3
     
     rowIndex = 1 # The value must be 1, because the "rowIndex - 1" operate
@@ -67,6 +67,9 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
         # for write hyperlink of log file  
         if  sheet.cell(rowIndex, COL_Restart_Times).value <> "":
             ws.write(rowIndex,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%sheet.cell(rowIndex, COL_remarks).value))
+            ws.write(rowIndex, COL_remarks,"")
+        elif sheet.cell(rowIndex, COL_Test_Result).value == "P":
+            ws.write(rowIndex, COL_remarks,"")
         if  sheet.cell(rowIndex, COL_Test_Result).value == "F":
             ws.write(rowIndex,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%sheet.cell(rowIndex, COL_remarks).value))
             ws.write(rowIndex, COL_remarks,"")
