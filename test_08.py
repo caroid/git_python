@@ -136,7 +136,7 @@ def log_statistic(i_path):
                 f_httpname = 'file://' + f_httpname_i
                 print (f_httpname)
                 ws.write(i-1,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%f_httpname))
-                ws.write(i-1,  COL_remarks, f_httpname)
+            ws.write(i-1,  COL_remarks, f_httpname)
                 # estimate the times that the "ATE restart button" have be clicked.
             soup=BeautifulSoup(open(f_fullname),"lxml")
             for child in soup.descendants:
