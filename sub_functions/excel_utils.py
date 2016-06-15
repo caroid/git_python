@@ -65,6 +65,8 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
     print sheet.ncols  
     for rowIndex in range(sheet.nrows):
         # for write hyperlink of log file  
+        if  sheet.cell(rowIndex, COL_Restart_Times).value <> "":
+            ws.write(rowIndex,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%sheet.cell(rowIndex, COL_remarks).value))
         if  sheet.cell(rowIndex, COL_Test_Result).value == "F":
             ws.write(rowIndex,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%sheet.cell(rowIndex, COL_remarks).value))
             ws.write(rowIndex, COL_remarks,"")
