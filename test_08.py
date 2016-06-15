@@ -47,6 +47,7 @@ def log_statistic(i_path):
     COL_Report_Hyperlink = 10
     COL_Fail_Comments = 11
     COL_remarks = 12
+    COL_temp = 13
     sheet_Log_Statistic = 3    
     # the display style of excel file.
     style0 = xlwt.easyxf('font: name Times New Roman, color-index red, bold on',num_format_str='#,##0.00')
@@ -129,7 +130,17 @@ def log_statistic(i_path):
             ws.write(i-1, COL_Station_ID, result)
             print temp[1]
             print temp[2]
-            print os.path.splitext(temp[3])[0]
+            print os.path.splitext(temp[3])[0]  
+            
+            #result_1 = re.compile("RESULT: FAIL",re.S).findall(buff)
+            #print result_1
+            #if result_1 <>[]:
+                #if result[0] ==  ['RESULT: FAIL']:
+            for iii in re.finditer("RESULT: FAIL",buff):
+                print iii.group(),iii.span()
+                print buff[iii.span()[0]-65 : iii.span()[1]]
+                ws.write(i-1, COL_temp, "%s"%(buff[iii.span()[0]-65:iii.span()[1]]),style2)    	
+        	
             # write the hyperlink of .html log to excel
         #if os.path.splitext(temp[3])[0] == "F":    
             f_httpname_i = os.path.join(i_path, filename)
