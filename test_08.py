@@ -131,11 +131,11 @@ def log_statistic(i_path):
             print temp[2]
             print os.path.splitext(temp[3])[0]
             # write the hyperlink of .html log to excel
-            if os.path.splitext(temp[3])[0] == "F":    
-                f_httpname_i = os.path.join(i_path, filename)
-                f_httpname = 'file://' + f_httpname_i
-                print (f_httpname)
-                ws.write(i-1,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%f_httpname))
+        #if os.path.splitext(temp[3])[0] == "F":    
+            f_httpname_i = os.path.join(i_path, filename)
+            f_httpname = 'file://' + f_httpname_i
+            print (f_httpname)
+            ws.write(i-1,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%f_httpname))
             ws.write(i-1,  COL_remarks, f_httpname)
                 # estimate the times that the "ATE restart button" have be clicked.
             soup=BeautifulSoup(open(f_fullname),"lxml")
