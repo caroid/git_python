@@ -5,6 +5,8 @@ __pycache__/
 *.pyc
 *.xls
 *.html
+.project
+
 # C extensions
 *.so
 
