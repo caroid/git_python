@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # usage: python test_07.py -p /home/user/Desktop/r230d_0608/R230D_5G/
-
+# plan: 1. Use dict replace to 'if else'. 
+#       2. add creat new excel file function used for temporary information and data , remove the template of excle files.
+#				3. extract subfunction from the main functions. increase the flexibility.
+# 
 import os 
 import subprocess 
 import re 
