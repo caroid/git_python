@@ -122,7 +122,7 @@ def log_statistic(i_path):
                     ws.write(i-1,COL_Repeat_Times,l,style2)  
                     ws.write(i-1,COL_Final_Result ,"OK")
                     #rate_final_result_P += 1
-            # pick Station ID from .html log.        
+            # extract Station ID from .html log.        
             f_fullname = os.path.join(i_path, filename)
             f = open(f_fullname,'r')
             buff = f.read()
@@ -134,10 +134,6 @@ def log_statistic(i_path):
             print temp[2]
             print os.path.splitext(temp[3])[0]  
             
-            #result_1 = re.compile("RESULT: FAIL",re.S).findall(buff)
-            #print result_1
-            #if result_1 <>[]:
-                #if result[0] ==  ['RESULT: FAIL']:
             for iii in re.finditer("RESULT: FAIL",buff):
                 print iii.group(),iii.span()
                 print buff[iii.span()[0]-100 : iii.span()[1]]
