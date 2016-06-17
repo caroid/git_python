@@ -39,6 +39,7 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
     # The Colon number and Sheet index will be handle with. The values will be modified with the caller.
     COL_SN_Num = 1
     COL_Test_Result = 4
+    COL_Repeat_Times = 6
     COL_Final_Result = 8
     COL_Restart_Times = 9
     COL_Report_Hyperlink = 10
@@ -65,10 +66,10 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
     print sheet.ncols  
     for rowIndex in range(sheet.nrows):
         # for write hyperlink of log file  
-        if  sheet.cell(rowIndex, COL_Restart_Times).value <> "" and rowIndex <> 0:
+        if  (sheet.cell(rowIndex, COL_Restart_Times).value <> "" or sheet.cell(rowIndex, COL_Repeat_Times).value <> "") and rowIndex <> 0:
             ws.write(rowIndex,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%sheet.cell(rowIndex, COL_remarks).value))
             ws.write(rowIndex, COL_remarks,"")
-        elif sheet.cell(rowIndex, COL_Test_Result).value == "P":
+        elif sheet.cell(rowIndex, COL_Test_Result).value == "P" and sheet.cell(rowIndex, COL_Repeat_Times).value == "":
             ws.write(rowIndex, COL_remarks,"")
         if  sheet.cell(rowIndex, COL_Test_Result).value == "F":
             ws.write(rowIndex,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%sheet.cell(rowIndex, COL_remarks).value))
