@@ -61,7 +61,7 @@ def log_statistic(i_path):
     w1 = 'Station ID:'
     w2 = ', Product Code:'
     # open an excel template file , copy and add some contents to generate final report
-    rb = open_workbook('/home/user/0_Daily_work/python/0_200pcs.xls',formatting_info=True)
+    rb = open_workbook('/home/user/0_Daily_work/git_python/0_200pcs.xls',formatting_info=True)
     wb = copy(rb)
     # select a sheet that will be addtion statistic data.
     ws = wb.get_sheet(3)
@@ -157,20 +157,18 @@ def log_statistic(i_path):
                         ws.write(i-1, COL_Restart_Times, n,style2)
                     n = n + 1
                 if child.string == "FAIL":
-                    #if p%2 == 1:
-                        #print(child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)	
-                        #if (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string) <> "-":
-                            #temp_1 += (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string + "\n")
-                            #ws.write(i-1,COL_Fail_Comments,temp_1[:-1])
-                    #p = p + 1  
-                    ws.write(i-1,COL_Fail_Comments,child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)
+                    print(child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)	
+                    if (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string) <> "-":
+                        temp_1 += (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string + "\n")
+                        ws.write(i-1,COL_Fail_Comments,temp_1[:-1])
+                    #ws.write(i-1,COL_Fail_Comments,child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)
     # caculate the number of illegal .html log
     ws.write(i+1, COL_Log_Quantity, "invalid_file_name = ")  
     ws.write(i+2, COL_Log_Quantity, invalid_file_name)
     #ws.write(i+1, COL_Final_Result,"rate_final_result_P = ")
     #ws.write(i+2, COL_Final_Result,rate_final_result_P)
-    wb.save('/home/user/0_Daily_work/python/0_200pcs_1.xls')
-    excel_utils.excel_rd_md_wr('/home/user/0_Daily_work/python','0_200pcs_1.xls','/home/user/0_Daily_work/python/0_200pcs_2.xls',sum_actual_SN)
+    wb.save('/home/user/0_Daily_work/git_python/0_200pcs_1.xls')
+    excel_utils.excel_rd_md_wr('/home/user/0_Daily_work/git_python','0_200pcs_1.xls','/home/user/0_Daily_work/git_python/0_200pcs_2.xls',sum_actual_SN)
     return log_statistic
 
 # -p []: input path, must end with "/",example: -p /home/user/Desktop/r230d_0608/R230D_5G/      
