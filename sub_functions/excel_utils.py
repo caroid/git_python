@@ -51,7 +51,7 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
     
     style0 = xlwt.easyxf('font: name Times New Roman, color-index red, bold on',num_format_str='#,##0.00')
     style1 = xlwt.easyxf('font: name Times New Roman, color-index green, bold on',num_format_str='#0')
-    style2 = xlwt.easyxf('font: name Times New Roman, color-index blue, bold on',num_format_str='#,##0.00')
+    style2 = xlwt.easyxf('font: name Times New Roman, color-index blue, bold off')
     style3 = xlwt.easyxf('font: name Times New Roman, color-index yellow, bold on',num_format_str='#,##0.00')
     style4 = xlwt.easyxf('pattern:pattern solid, fore_colour yellow;''align: vertical center, horizontal left;''font: bold true, colour black;',num_format_str='#0')
     
@@ -67,12 +67,12 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
     for rowIndex in range(sheet.nrows):
         # for write hyperlink of log file  
         if  (sheet.cell(rowIndex, COL_Restart_Times).value <> "" or sheet.cell(rowIndex, COL_Repeat_Times).value <> "") and rowIndex <> 0:
-            ws.write(rowIndex,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%sheet.cell(rowIndex, COL_remarks).value))
+            ws.write(rowIndex,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%sheet.cell(rowIndex, COL_remarks).value),style2)
             ws.write(rowIndex, COL_remarks,"")
         elif sheet.cell(rowIndex, COL_Test_Result).value == "P" and sheet.cell(rowIndex, COL_Repeat_Times).value == "":
             ws.write(rowIndex, COL_remarks,"")
         if  sheet.cell(rowIndex, COL_Test_Result).value == "F":
-            ws.write(rowIndex,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%sheet.cell(rowIndex, COL_remarks).value))
+            ws.write(rowIndex,  COL_Report_Hyperlink, xlwt.Formula('Hyperlink("%s")'%sheet.cell(rowIndex, COL_remarks).value),style2)
             ws.write(rowIndex, COL_remarks,"")
             if  sheet.cell(rowIndex ,COL_Fail_Comments).value[0:12] == "100 Frames @":
                 ws.write(rowIndex ,COL_Fail_Comments,"100 Frames @")
