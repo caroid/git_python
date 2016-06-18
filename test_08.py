@@ -157,10 +157,12 @@ def log_statistic(i_path):
                         ws.write(i-1, COL_Restart_Times, n,style2)
                     n = n + 1
                 if child.string == "FAIL":
-                    print(child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)	
-                    if (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string) <> "-":
-                        temp_1 += (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string + "\n")
-                        ws.write(i-1,COL_Fail_Comments,temp_1[:-1])
+                    if p%2 == 1:
+                        print(child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)	
+                        if (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string) <> "-":
+                            temp_1 += (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string + "\n")
+                            ws.write(i-1,COL_Fail_Comments,temp_1[:-1])
+                    p += 1
                     #ws.write(i-1,COL_Fail_Comments,child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)
     # caculate the number of illegal .html log
     ws.write(i+1, COL_Log_Quantity, "invalid_file_name = ")  
