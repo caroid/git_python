@@ -26,12 +26,18 @@ from sub_functions import excel_utils
 def log_statistic(i_path):
     temp=''
     temp_1 = ""
+    temp_100 = ""
+    temp_2 = {}
+    temp_3 = {}
+    temp_10 = {}
+    temp_11 = {}
     i =1 # counter for "Log Quantity"
     k =1 # counter for "Actual SN Quantity"
     l = 0 # counter for "Repeat Times"
     m = 0 # counter for "cross border detection". the number of parts from filename split should no less than 3.
     n = 0 # counter for "Restart Times"
     p = 1 # abstract flag for "parse the node from soup.desendants", delete one string from dobule info string.
+    p_1 = 1
     sum_actual_SN = 0 # sumary of actual SN
     invalid_file_name = 0 # The number of invalid file name in input directory
     #rate_final_result_P = 0 # count of repeat test success 
@@ -86,8 +92,12 @@ def log_statistic(i_path):
             print i
             n = 0
             p = 1
+            p_1 = 1
             m = 0
             temp_1 = ""
+            temp_100 = ""
+            temp_3 = {}
+            temp_11 = {}
             if filename[0:2] =="HW":
                 continue
             ws.write(i, COL_Log_Quantity, i)	
@@ -105,11 +115,19 @@ def log_statistic(i_path):
                 ws.write(i, COL_Actual_SN_Quantity, k,style2)
                 lines_seen.add(temp[0])
                 sum_actual_SN += 1
+                temp_2 = {}
+                temp_10 = {}
                 k = k +1
                 l = 1
             else:
                 l = l + 1
                 ws.write(i, COL_SN_Num, temp[0])
+                if len(temp_2) <> 0 and temp_2.has_key('\n'):
+                    if temp_2.values()[0] == temp[0]:
+                        del temp_2['\n']
+                        temp_10 = temp_2.copy()
+                        print temp_10
+
             ws.write(i, COL_Test_Date, temp[1])
             ws.write(i, COL_Test_Time, temp[2])
             if os.path.splitext(temp[3])[0] == "F":
@@ -157,12 +175,23 @@ def log_statistic(i_path):
                         ws.write(i-1, COL_Restart_Times, n,style2)
                     n = n + 1
                 if child.string == "FAIL":
+                    temp_1 += (child.previous.previous.string )
+                    temp_3[child.previous.previous.string] = temp[0] #dict
                     if p%2 == 1:
                         print(child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)	
-                        if (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string) <> "-":
-                            temp_1 += (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string + "\n")
-                            ws.write(i-1,COL_Fail_Comments,temp_1[:-1])
+                        #if (child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string) <> "-":
+                        temp_1 += (" : " + child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string )
+                        ws.write(i-1,COL_Fail_Comments,temp_1[:-1])
+                        temp_2.update(temp_3)
                     p += 1
+                    print temp_2
+                #if len(temp_10) <> 0 and os.path.splitext(temp[3])[0] == "P" and (child.string in temp_10.keys()):
+                if len(temp_10.keys()) <> 0 and (child.string in temp_10.keys()):
+                    if p_1%2 == 1:
+                        temp_100 += child.string
+                        temp_100 += (" : " + child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string + "\n")
+                        ws.write(i-1,COL_Fail_Comments,temp_100[:-1])
+                    p_1 += 1
                     #ws.write(i-1,COL_Fail_Comments,child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)
     # caculate the number of illegal .html log
     ws.write(i+1, COL_Log_Quantity, "invalid_file_name = ")  
