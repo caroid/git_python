@@ -156,7 +156,11 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
             if (sheet.cell(rowIndex +1,COL_Final_Result).value == "OK") and (sheet.cell(rowIndex ,COL_Test_Result).value == "F") and(sheet.cell(rowIndex ,COL_SN_Num).value == sheet.cell(rowIndex +1,COL_SN_Num).value):
                 err_Wifi_Calibration_OK += 1
             if (sheet.cell(rowIndex ,COL_Test_Result).value == "F") and(sheet.cell(rowIndex ,COL_SN_Num).value <> sheet.cell(rowIndex +1,COL_SN_Num).value):
-                err_Wifi_Calibration += 1                                                
+                err_Wifi_Calibration += 1    
+                                                            
+    ws.write(rowIndex+2,COL_SN_Num, xlwt.Formula("subtotal(3,B2:B%d)"%rowIndex),style1)
+    ws.write(rowIndex+1,COL_SN_Num, "Calculate SUBTOTAL for Filter",style1)
+    
     ws.write(sheet.nrows -1, COL_Restart_Times,"rate_final_result_F =")
     ws.write(sheet.nrows , COL_Restart_Times,rate_final_result_F)
     ws.write(sheet.nrows + 1, COL_Restart_Times,"%.4f%%"%(float(rate_final_result_F)/float(sum_actual_SN) * 100))

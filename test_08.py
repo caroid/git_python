@@ -219,6 +219,7 @@ def log_statistic(i_path):
     # caculate the number of illegal .html log
     ws.write(i+1, COL_Log_Quantity, "invalid_file_name = ")  
     ws.write(i+2, COL_Log_Quantity, invalid_file_name)
+    ws.write(i+2,COL_SN_Num, xlwt.Formula("subtotal(3,B2:B%d)"%i))
     #ws.write(i+1, COL_Final_Result,"rate_final_result_P = ")
     #ws.write(i+2, COL_Final_Result,rate_final_result_P)
     wb.save('/home/user/0_Daily_work/git_python/0_200pcs_1.xls')
