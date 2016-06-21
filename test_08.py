@@ -27,6 +27,9 @@ def log_statistic(i_path):
     temp=''
     temp_1 = ""
     temp_100 = ""
+    temp_110 = ""
+    temp_111 = ""
+    temp_112 = ""
     temp_2 = {}
     temp_3 = {}
     temp_10 = {}
@@ -57,6 +60,8 @@ def log_statistic(i_path):
     COL_Fail_Comments = 11
     COL_Error_Types = 12
     COL_remarks = 13
+    COL_Error_416 = 14
+    COL_Error_LP_VsaDataCapture = 15
     
     sheet_Log_Statistic = 3    
     # the display style of excel file.
@@ -84,6 +89,8 @@ def log_statistic(i_path):
     ws.write(0, COL_Report_Hyperlink, "Hyperlink of Fail log",style1)
     ws.write(0, COL_Fail_Comments, "Comments of Fail",style1)
     ws.write(0, COL_Error_Types, "COL_Error_Types",style1)
+    ws.write(0, COL_Error_416, "COL_Error_416",style1)
+    ws.write(0, COL_Error_LP_VsaDataCapture, "COL_Error_LP_VsaDataCapture",style1)
     # algorithm : Remove duplicate SN number, create a set, if element is NOT in set, add it, else the element is in set, don't add.
     lines_seen = set() 
     filenames = os.listdir(os.path.dirname(i_path))
@@ -96,6 +103,9 @@ def log_statistic(i_path):
             m = 0
             temp_1 = ""
             temp_100 = ""
+            temp_110 = ""
+            temp_111 = ""
+            temp_112 = ""
             temp_3 = {}
             temp_11 = {}
             if filename[0:2] =="HW":
@@ -158,8 +168,21 @@ def log_statistic(i_path):
             for iii in re.finditer("RESULT: FAIL",buff):
                 print iii.group(),iii.span()
                 print buff[iii.span()[0]-100 : iii.span()[1]]
-                ws.write(i-1, COL_Error_Types, "%s"%(buff[iii.span()[0]-65:iii.span()[1]]),style2)    	
+                temp_110 = (buff[iii.span()[0]-100 : iii.span()[1]])
+                ws.write(i-1, COL_Error_Types, "%s"%temp_110[:],style2)    	
+
+            for iiiiii in re.finditer("txgain=416, power=",buff):
+                print iiiiii.group(),iiiiii.span()
+                print buff[iiiiii.span()[0]-100 : iiiiii.span()[1]]
+                temp_111 = (buff[iiiiii.span()[0]-100 : iiiiii.span()[1]])
+                ws.write(i-1, COL_Error_416, "%s"%temp_111[:],style2)
         	
+            for ii in re.finditer("LP_VsaDataCapture returned error: Data capture failed",buff):
+                print ii.group(),ii.span()
+                print buff[ii.span()[0]-100 : ii.span()[1]]
+                temp_112 = (buff[ii.span()[0]-100 : ii.span()[1]])
+                ws.write(i-1, COL_Error_LP_VsaDataCapture, "%s"%temp_112[:],style2)
+                
             # write the hyperlink of .html log to excel
         #if os.path.splitext(temp[3])[0] == "F":    
             f_httpname_i = os.path.join(i_path, filename)
