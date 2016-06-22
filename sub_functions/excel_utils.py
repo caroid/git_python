@@ -102,10 +102,10 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
                 rate_final_result_P += 1
                 
         # judge first pass PCB
-        if  sheet.cell(rowIndex -1 ,COL_SN_Num).value <> sheet.cell(rowIndex ,COL_SN_Num).value and sheet.cell(rowIndex ,COL_SN_Num).value <> sheet.cell(rowIndex + 1,COL_SN_Num).value:
-            if sheet.cell(rowIndex ,COL_Test_Result).value == "P":
-                ws.write(rowIndex ,COL_First_Pass,"First Pass",style1)
-                print rowIndex        
+        #if  sheet.cell(rowIndex -1 ,COL_SN_Num).value <> sheet.cell(rowIndex ,COL_SN_Num).value and sheet.cell(rowIndex ,COL_SN_Num).value <> sheet.cell(rowIndex + 1,COL_SN_Num).value:
+        #    if sheet.cell(rowIndex ,COL_Test_Result).value == "P":
+        #        ws.write(rowIndex ,COL_First_Pass,"First Pass",style1)
+        #        print rowIndex        
 
         # for count the error type of 7506_CONTROL_DONE
         if  sheet.cell(rowIndex ,COL_Fail_Comments).value[0:20] == "7506 CONTROL DONE tx":
@@ -264,7 +264,24 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
     ws.write(sheet.nrows +63, COL_Fail_Comments,"err_Wifi_Calibration =")
     ws.write(sheet.nrows +64, COL_Fail_Comments,err_Wifi_Calibration)
     ws.write(sheet.nrows +65, COL_Fail_Comments,"%.4f%%"%(float(err_Wifi_Calibration)/float(sum_actual_SN) * 100))        
-                                                
+
+    rb_5G = open_workbook("/home/user/0_Daily_work/git_python/R230D_0608_1700pcs_log_5G_analysis_0622_1.xls",formatting_info=True)
+    #rb_2G = open_workbook("/home/user/Desktop/R230D_0608_1700pcs_log_2G_analysis_0622_1.xls",formatting_info=True)
+    #wb_merge = copy(rb_2G)
+    #ws_merge = wb_merge.get_sheet(0)
+    #sheet_2G = rb_2G.sheet_by_index(0)  
+    sheet_5G = rb_5G.sheet_by_index(0)
+    #print sheet_2G.name 
+    #print sheet_2G.nrows
+    #print sheet_2G.ncols 
+    print sheet_5G.name
+    print sheet_5G.nrows
+    print sheet_5G.ncols
+    for rowIndex_2G in range(sheet.nrows):
+        for rowIndex_5G in range(sheet_5G.nrows):
+            if rowIndex_5G <> 0 and sheet.cell(rowIndex_2G,COL_SN_Num).value == sheet_5G.cell(rowIndex_5G,COL_SN_Num).value:
+                ws.write(rowIndex_2G ,COL_First_Pass,sheet_5G.cell(rowIndex_5G,COL_Test_Result).value,style1)
+                                               
     wb.save(o_filename)
     return excel_rd_md_wr
     
