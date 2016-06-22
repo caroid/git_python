@@ -39,6 +39,7 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
     # The Colon number and Sheet index will be handle with. The values will be modified with the caller.
     COL_SN_Num = 1
     COL_Test_Result = 4
+    COL_First_Pass = 5
     COL_Repeat_Times = 6
     COL_Final_Result = 8
     COL_Restart_Times = 9
@@ -99,6 +100,13 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
                 ws.write(rowIndex ,COL_Final_Result,"")
             else :
                 rate_final_result_P += 1
+                
+        # judge first pass PCB
+        if  sheet.cell(rowIndex -1 ,COL_SN_Num).value <> sheet.cell(rowIndex ,COL_SN_Num).value and sheet.cell(rowIndex ,COL_SN_Num).value <> sheet.cell(rowIndex + 1,COL_SN_Num).value:
+            if sheet.cell(rowIndex ,COL_Test_Result).value == "P":
+                ws.write(rowIndex ,COL_First_Pass,"First Pass",style1)
+                print rowIndex        
+
         # for count the error type of 7506_CONTROL_DONE
         if  sheet.cell(rowIndex ,COL_Fail_Comments).value[0:20] == "7506 CONTROL DONE tx":
             if (sheet.cell(rowIndex +1,COL_Final_Result).value == "OK") and (sheet.cell(rowIndex ,COL_Test_Result).value == "F") and(sheet.cell(rowIndex ,COL_SN_Num).value == sheet.cell(rowIndex +1,COL_SN_Num).value):

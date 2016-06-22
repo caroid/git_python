@@ -52,6 +52,7 @@ def log_statistic(i_path):
     COL_Test_Time = 3
     COL_Test_Result = 4
     COL_Log_Quantity = 5
+    COL_First_Pass = 5
     COL_Repeat_Times = 6
     COL_Station_ID = 7
     COL_Final_Result = 8
@@ -81,7 +82,7 @@ def log_statistic(i_path):
     ws.write(0, COL_Test_Date, "Test Date",style1)	
     ws.write(0, COL_Test_Time, "Test Time",style1)	
     ws.write(0, COL_Test_Result, "Test Result",style1)	
-    ws.write(0, COL_Log_Quantity, "Log Quantity",style1)	
+    ws.write(0, COL_First_Pass, "Log Quantity",style1)	
     ws.write(0, COL_Repeat_Times, "Repeat Times",style1)	
     ws.write(0, COL_Station_ID, "Station ID",style1)
     ws.write(0, COL_Final_Result, "Final Results of Repeat Test",style1) 
@@ -110,7 +111,7 @@ def log_statistic(i_path):
             temp_11 = {}
             if filename[0:2] =="HW":
                 continue
-            ws.write(i, COL_Log_Quantity, i)	
+            #ws.write(i, COL_Log_Quantity, i)	
             temp=filename.split("_")
             # cross border detection.
             for val in temp:
@@ -217,8 +218,8 @@ def log_statistic(i_path):
                     p_1 += 1
                     #ws.write(i-1,COL_Fail_Comments,child.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.next.string)
     # caculate the number of illegal .html log
-    ws.write(i+1, COL_Log_Quantity, "invalid_file_name = ")  
-    ws.write(i+2, COL_Log_Quantity, invalid_file_name)
+    ws.write(i+1, COL_First_Pass, "invalid_file_name = ")  
+    ws.write(i+2, COL_First_Pass, invalid_file_name)
     ws.write(i+2,COL_SN_Num, xlwt.Formula("subtotal(3,B2:B%d)"%i))
     #ws.write(i+1, COL_Final_Result,"rate_final_result_P = ")
     #ws.write(i+2, COL_Final_Result,rate_final_result_P)
