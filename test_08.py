@@ -82,7 +82,7 @@ def log_statistic(i_path):
     ws.write(0, COL_Test_Date, "Test Date",style1)	
     ws.write(0, COL_Test_Time, "Test Time",style1)	
     ws.write(0, COL_Test_Result, "Test Result",style1)	
-    ws.write(0, COL_First_Pass, "Log Quantity",style1)	
+    ws.write(0, COL_First_Pass, "First Pass",style1)	
     ws.write(0, COL_Repeat_Times, "Repeat Times",style1)	
     ws.write(0, COL_Station_ID, "Station ID",style1)
     ws.write(0, COL_Final_Result, "Final Results of Repeat Test",style1) 
