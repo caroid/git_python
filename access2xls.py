@@ -17,7 +17,7 @@ def make_create_sql():
             for file_p in mdb_file[2]:
                 if file_p[-3:] == 'mdb':
                     print file_p
-                    cmd = 'mdb-schema %s  >>/home/user/0_Daily_work/AR129CGVW-L2/create.sql'
+                    cmd = 'mdb-schema %s  >>' + dir + 'create.sql'
                     cmd = cmd % (dir + file_p)
                     print cmd
                     os.system(cmd)
@@ -94,14 +94,14 @@ def modefy_insert_CSV():
                     os.rename(sql_file_name_des, sql_file_name)
 
 def insert_into_database():
-    cmd = 'psql -h 172.26.11.205 -d ap_MapMyIndia_full_Sample -U postgres -f %s 2>>log.txt' % (dir + 'create.sql')
+    cmd = ('psql -h 172.26.11.205 -d ap_MapMyIndia_full_Sample -U postgres -f %s 2>>' + dir +'log.txt') % (dir + 'create.sql')
     os.system(cmd)
     for sql_file in os.walk(dir):
         if len(sql_file[2]) >0:
             for file_p in sql_file[2]:
                 print file_p
                 if file_p[-3:] == 'csv' :
-                    cmd = 'psql -h 172.26.11.205 -d ap_MapMyIndia_full_Sample -U postgres -f %s 2>>log.txt' % (dir + '"' + file_p + '"')
+                    cmd = ('psql -h 172.26.11.205 -d ap_MapMyIndia_full_Sample -U postgres -f %s 2>>' + dir +'log.txt') % (dir + '"' + file_p + '"')
                     os.system(cmd)
 
 if __name__ == "__main__":
