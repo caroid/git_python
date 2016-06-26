@@ -13,6 +13,7 @@ def make_create_sql():
         os.remove(dir + 'create.sql')
 
     for mdb_file in os.walk(dir):
+        print mdb_file[2]
         if len(mdb_file[2]) >0:
             for file_p in mdb_file[2]:
                 if file_p[-3:] == 'mdb':
@@ -23,9 +24,11 @@ def make_create_sql():
                     os.system(cmd)
                     cmd = 'mdb-tables -1 %s ' % (dir + file_p)
                     val = os.popen(cmd).read()
+                    print val
                     mdb_tbl_dic[file_p] = val.split('\n')
+                    print mdb_tbl_dic[file_p]
     print mdb_tbl_dic
-def modefy_create_sql():
+def modify_create_sql():
     sql_file_name = dir + 'create.sql'
     sql_file_name_des = sql_file_name + '_new'
     fobj = open(sql_file_name, 'r')
@@ -65,7 +68,7 @@ def make_insert_csv():
             if len(tbl) >0:
                 cmd = 'mdb-export    %s %s >%s.csv' % (dir + file_p, '"' + tbl + '"', dir + '"' + tbl + '"')# tbl.replace(' ', '_').replace('&', '_'))
                 os.system(cmd)
-def modefy_insert_CSV():
+def modify_insert_CSV():
     for sql_file in os.walk(dir):
         if len(sql_file[2]) >0:
             for file_p in sql_file[2]:
@@ -108,9 +111,38 @@ if __name__ == "__main__":
     #1.制作mdb文件中所包含TABLE的create脚本
     make_create_sql()
     #2.修改掉create脚本中的不合法字符
-    modefy_create_sql()
+    modify_create_sql()
     #3.将mdb中各表导出到csv文件中
     make_insert_csv()
     #4.修改csv脚本首行，改成copy形式
-    modefy_insert_CSV()
+    modify_insert_CSV()
     insert_into_database()
+    
+    
+"""
+This will build some useful utilities:
+
+mdb-ver    -- prints the version (JET 3 or 4) of an mdb file
+mdb-dump   -- simple hex dump utility that I've been using to look at mdb files
+mdb-schema -- prints DDL for the specified table
+mdb-export -- export table to CSV format
+mdb-tables -- a simple dump of table names to be used with shell scripts
+mdb-header -- generates a C header to be used in exporting mdb data to a C prog.
+mdb-parsecvs -- generates a C program given a CSV file made with mdb-export
+mdb-sql    -- if --enable-sql is specified, a simple SQL engine (also used by 
+              ODBC and gmdb).
+gmdb2      -- a graphical utility to browse MDB files.
+
+And some utilities useful for debugging:
+
+prcat      -- prints the catalog table from an mdb file,
+prkkd      -- dump of information about design view data given the offset to it.
+prtable    -- dump of a table definition.
+prdata     -- dump of the data given a table name.
+prole      -- dump of ole columns given a table name and sargs.
+
+Once MDB Tools has been compiled, libmdb.[so|a] will be in the src/libmdb 
+directory and the utility programs will be in the src/util directory.
+You can then run 'make install' as root to install (to /usr/local by default).
+
+"""    
