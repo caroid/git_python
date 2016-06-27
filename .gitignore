@@ -12,6 +12,8 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+!vba/
+!vba/*.bas
 .Python
 env/
 build/
