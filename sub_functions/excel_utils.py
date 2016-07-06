@@ -266,22 +266,22 @@ def excel_rd_md_wr(i_path,i_filename,o_filename,sum_actual_SN):
     ws.write(sheet.nrows +65, COL_Fail_Comments,"%.4f%%"%(float(err_Wifi_Calibration)/float(sum_actual_SN) * 100))        
 
     rb_5G = open_workbook("/home/user/0_Daily_work/git_python/R230D_0608_1700pcs_log_5G_analysis_0622_1.xls",formatting_info=True)
-    #rb_2G = open_workbook("/home/user/Desktop/R230D_0608_1700pcs_log_2G_analysis_0622_1.xls",formatting_info=True)
+    rb_2G = open_workbook("/home/user/Desktop/R230D_0627_765pcs_log_2G_statistic.xls",formatting_info=True)
     #wb_merge = copy(rb_2G)
     #ws_merge = wb_merge.get_sheet(0)
-    #sheet_2G = rb_2G.sheet_by_index(0)  
+    sheet_2G = rb_2G.sheet_by_index(0)  
     sheet_5G = rb_5G.sheet_by_index(0)
-    #print sheet_2G.name 
-    #print sheet_2G.nrows
-    #print sheet_2G.ncols 
+    print sheet_2G.name 
+    print sheet_2G.nrows
+    print sheet_2G.ncols 
     print sheet_5G.name
     print sheet_5G.nrows
     print sheet_5G.ncols
-    for rowIndex_2G in range(sheet.nrows):
-        for rowIndex_5G in range(sheet_5G.nrows):
-            if rowIndex_5G <> 0 and sheet.cell(rowIndex_2G,COL_SN_Num).value == sheet_5G.cell(rowIndex_5G,COL_SN_Num).value:
-                ws.write(rowIndex_2G ,COL_First_Pass,sheet_5G.cell(rowIndex_5G,COL_Test_Result).value,style1)
-                                               
+    for rowIndex_2G in range(sheet_2G.nrows):
+        for rowIndex_5G in range(sheet.nrows):
+            if rowIndex_5G <> 0 and sheet.cell(rowIndex_5G,COL_SN_Num).value == sheet_2G.cell(rowIndex_2G,COL_SN_Num).value:
+                ws.write(rowIndex_5G ,COL_First_Pass,sheet_2G.cell(rowIndex_2G,COL_Test_Result).value,style1)
+                break                               
     wb.save(o_filename)
     return excel_rd_md_wr
     

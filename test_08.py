@@ -170,19 +170,19 @@ def log_statistic(i_path):
                 print iii.group(),iii.span()
                 print buff[iii.span()[0]-100 : iii.span()[1]]
                 temp_110 = (buff[iii.span()[0]-100 : iii.span()[1]])
-                ws.write(i-1, COL_Error_Types, "%s"%temp_110[:],style2)    	
+                ws.write(i-1, COL_Error_Types, "%s"%temp_110[:])    	
 
             for iiiiii in re.finditer("txgain=416, power=",buff):
                 print iiiiii.group(),iiiiii.span()
                 print buff[iiiiii.span()[0]-100 : iiiiii.span()[1]]
                 temp_111 = (buff[iiiiii.span()[0]-100 : iiiiii.span()[1]])
-                ws.write(i-1, COL_Error_416, "%s"%temp_111[:],style2)
+                ws.write(i-1, COL_Error_416, "%s"%temp_111[:])
         	
             for ii in re.finditer("LP_VsaDataCapture returned error: Data capture failed",buff):
                 print ii.group(),ii.span()
                 print buff[ii.span()[0]-100 : ii.span()[1]]
                 temp_112 = (buff[ii.span()[0]-100 : ii.span()[1]])
-                ws.write(i-1, COL_Error_LP_VsaDataCapture, "%s"%temp_112[:],style2)
+                ws.write(i-1, COL_Error_LP_VsaDataCapture, "%s"%temp_112[:])
                 
             # write the hyperlink of .html log to excel
         #if os.path.splitext(temp[3])[0] == "F":    
@@ -220,7 +220,7 @@ def log_statistic(i_path):
     # caculate the number of illegal .html log
     ws.write(i+1, COL_First_Pass, "invalid_file_name = ")  
     ws.write(i+2, COL_First_Pass, invalid_file_name)
-    ws.write(i+2,COL_SN_Num, xlwt.Formula("subtotal(3,B2:B%d)"%i))
+    ws.write(i+2,COL_SN_Num, xlwt.Formula("subtotal(103,B2:B%d)"%i))
     #ws.write(i+1, COL_Final_Result,"rate_final_result_P = ")
     #ws.write(i+2, COL_Final_Result,rate_final_result_P)
     wb.save('/home/user/0_Daily_work/git_python/0_200pcs_1.xls')
