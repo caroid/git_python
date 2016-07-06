@@ -68,7 +68,7 @@ Range("A1").Select
     y = 4
     m = 1
     
-Do While Left(Sheet1.Cells(x, 1), 1) = "G"
+Do While (Left(Sheet1.Cells(x, 1), 1) = "G" Or Left(Sheet1.Cells(x, 1), 1) = "L")
 
     Sheet2.Cells(y, 1) = Sheet1.Cells(x, 1)
     Sheet2.Cells(y, 2) = Sheet1.Cells(x, 2)
